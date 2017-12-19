@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from blog.models import post
 from blog.forms import PostForm
 
@@ -18,6 +19,8 @@ def post_create(request):
     if form.is_valid():
         instance = form.save(commit = False)
         instance.save()
+        messages.success(request, "Successfully created")
+        return redirect('blog:post_list')
 
     context ={
         'form': form
@@ -42,6 +45,7 @@ def post_update(request, id):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        messages.success(request, "Successfully Updated")
         return redirect('blog:post_detail', id=instance.id)
 
     context = {
