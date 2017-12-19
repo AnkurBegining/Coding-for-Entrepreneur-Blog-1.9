@@ -30,6 +30,11 @@
             Update
         </button>
     </a>
+    <a href="{% url 'blog:post_delete' id=post.id %}">
+        <button>
+            Delete
+        </button>
+    </a>
     <hr>
 {% endfor %}
 

@@ -52,5 +52,7 @@ def post_update(request, id):
     return render(request, "blog/post_update.html", context)
 
 
-def post_delete(request):
-    return render(request, "blog/post_delete.html", {})
+def post_delete(request, id):
+    instance = get_object_or_404(post, id=id)
+    instance.delete()
+    return redirect('blog:post_list')
