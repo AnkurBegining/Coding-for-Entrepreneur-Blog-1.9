@@ -1,25 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post Create</title>
-</head>
-<body>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% extends 'blog/base.html' %}
+{% block head_title %}
+    Create New Post
+{% endblock head_title %}
+{% include 'blog/message_display.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
-<h1>
-    Post Form
-</h1>
-<form method="POST" action="{% url 'blog:post_create' %}">{% csrf_token %}
+                <h1>
+                    Post Form
+                </h1>
+                <form method="POST" action="{% url 'blog:post_create' %}">{% csrf_token %}
 
-    {{ form.as_p }}
- <input type="submit" value="Create Post">
-</form>
-</body>
-</html>
+                    {{ form.as_p }}
+                    <input type="submit" value="Create Post">
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+    </div>
+{% endblock content %}
+
+
