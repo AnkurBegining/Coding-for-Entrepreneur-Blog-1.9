@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import post
 from blog.forms import PostForm
 
@@ -35,8 +35,21 @@ def post_detail(request, id):
     return render(request, "blog/post_detail.html", context_data)
 
 
-def post_update(request):
-    return render(request, "blog/post_update.html", {})
+def post_update(request, id):
+    instance = get_object_or_404(post, id=id)
+    # Remember putting or None
+    form = PostForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return redirect('blog:post_detail', id=instance.id)
+
+    context = {
+        'form' : form,
+        'instance' : instance
+    }
+
+    return render(request, "blog/post_update.html", context)
 
 
 def post_delete(request):

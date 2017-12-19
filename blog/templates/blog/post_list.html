@@ -25,6 +25,11 @@
     {{ post.timestamp }}
     <br>
     <br>
+    <a href="{% url 'blog:post_update' id=post.id %}">
+        <button>
+            Update
+        </button>
+    </a>
     <hr>
 {% endfor %}
 
