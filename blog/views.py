@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from blog.models import post
+from blog.forms import PostForm
 
 # Create your views here.
 
@@ -12,7 +13,16 @@ def post_list(request):
 
 
 def post_create(request):
-    return render(request, "blog/post_create.html", {})
+    form = PostForm(request.POST)
+
+    if form.is_valid():
+        instance = form.save(commit = False)
+        instance.save()
+
+    context ={
+        'form': form
+    }
+    return render(request, "blog/post_create.html", context)
 
 
 def post_detail(request, id):

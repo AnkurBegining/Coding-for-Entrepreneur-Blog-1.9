@@ -9,7 +9,10 @@
     {{ title }}
 </h1>
 
-{{ post.title }}<br>
+<a href="{% url 'blog:post_detail' id=post.id %}">
+    {{ post.title }}<br>
+</a>
+
 {{ post.post_content }}<br>
 {{ post.timestamp }}
 {{ post.updated }}<br>

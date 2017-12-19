@@ -9,9 +9,14 @@
    Post List
 </h1>
 {% for post in posts_list %}
-    {{ post.id }}
+    <h3>
+        <a href="{% url 'blog:post_detail' id=post.id %}">
+           {{ post.title }}
+        </a>
+    </h3>
+
     <br>
-    {{ post.title }}
+    {{ post.id }}
     <br>
     {{ post.post_content }}
     <br>
