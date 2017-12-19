@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post List</title>
+</head>
+<body>
+<h1>
+   Post List
+</h1>
+{% for post in posts_list %}
+    {{ post.id }}
+    <br>
+    {{ post.title }}
+    <br>
+    {{ post.post_content }}
+    <br>
+    {{ post.updated }}
+    <br>
+    {{ post.timestamp }}
+    <br>
+    <br>
+    <hr>
+{% endfor %}
+
+</body>
+</html>
