@@ -25,7 +25,7 @@ def post_list(request):
 
 
 def post_create(request):
-    form = PostForm(request.POST)
+    form = PostForm(request.POST, request.FILES)
 
     if form.is_valid():
         instance = form.save(commit = False)
@@ -52,7 +52,7 @@ def post_detail(request, id):
 def post_update(request, id):
     instance = get_object_or_404(post, id=id)
     # Remember putting or None
-    form = PostForm(request.POST or None, instance=instance)
+    form = PostForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()

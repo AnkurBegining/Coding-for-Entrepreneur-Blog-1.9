@@ -10,7 +10,8 @@
                 <h1>
                     Post Form
                 </h1>
-                <form method="POST" action="{% url 'blog:post_create' %}">{% csrf_token %}
+                <form method="POST"  enctype="multipart/form-data"
+                      action="{% url 'blog:post_create' %}">{% csrf_token %}
                     {{ form.as_p }}
                     <input type="submit" value="Create Post">
                 </form>
