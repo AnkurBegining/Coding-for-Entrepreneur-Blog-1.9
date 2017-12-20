@@ -11,7 +11,7 @@
                     <img src="{{ post.image.url }}" class="img-responsive" alt="Blog Post image">
                 {% endif %}
                 <h1>
-                    <a href="{% url 'blog:post_detail' id=post.id %}">
+                    <a href="{% url 'blog:post_detail' slug=post.slug %}">
                         {{ post.title }}
                         <small>
                             {{ post.updated|timesince }} ago

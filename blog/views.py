@@ -39,9 +39,9 @@ def post_create(request):
     return render(request, "blog/post_create.html", context)
 
 
-def post_detail(request, id):
+def post_detail(request, slug):
 
-    instance = get_object_or_404(post, id =id)
+    instance = get_object_or_404(post, slug =slug)
     context_data = {
         "title" : instance.title,
         "post" : instance
@@ -49,15 +49,15 @@ def post_detail(request, id):
     return render(request, "blog/post_detail.html", context_data)
 
 
-def post_update(request, id):
-    instance = get_object_or_404(post, id=id)
+def post_update(request, slug):
+    instance = get_object_or_404(post, slug=slug)
     # Remember putting or None
     form = PostForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
         messages.success(request, "Successfully Updated")
-        return redirect('blog:post_detail', id=instance.id)
+        return redirect('blog:post_detail', slug=instance.slug)
 
     context = {
         'form' : form,
@@ -67,7 +67,7 @@ def post_update(request, id):
     return render(request, "blog/post_update.html", context)
 
 
-def post_delete(request, id):
-    instance = get_object_or_404(post, id=id)
+def post_delete(request, slug):
+    instance = get_object_or_404(post,  slug=slug)
     instance.delete()
     return redirect('blog:post_list')
