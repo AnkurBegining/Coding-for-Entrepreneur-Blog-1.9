@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 def post_list(request):
     posts_list = post.objects.all()
-    paginator = Paginator(posts_list, 5)  # Show 10 contacts per page
+    paginator = Paginator(posts_list, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -25,7 +25,7 @@ def post_list(request):
 
 
 def post_create(request):
-    form = PostForm(request.POST, request.FILES)
+    form = PostForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         instance = form.save(commit = False)
