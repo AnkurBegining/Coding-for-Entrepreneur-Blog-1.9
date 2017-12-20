@@ -6,19 +6,19 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-6 col-md-offset-3">
                 <h1>
-                    {{ title }}
+                    <a href="{% url 'blog:post_detail' id=post.id %}">
+                        {{ post.title }}
+                        <small>
+                            {{ post.updated|timesince }} ago
+                        </small>
+                    </a>
                 </h1>
-                <a href="{% url 'blog:post_detail' id=post.id %}">
-                    {{ post.title }}<br>
-                </a>
-                {{ post.post_content }}<br>
-                {{ post.timestamp }}
-                {{ post.updated }}<br>
+                <p>
+                   {{ post.post_content }}
+                </p>
             </div>
-            <div class="col-md-2"></div>
         </div>
     </div>
 {% endblock content %}

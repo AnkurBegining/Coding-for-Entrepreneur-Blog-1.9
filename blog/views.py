@@ -2,11 +2,22 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from blog.models import post
 from blog.forms import PostForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
 
 # Create your views here.
 
 def post_list(request):
-    posts = post.objects.all()
+    posts_list = post.objects.all()
+    paginator = Paginator(posts_list, 5)  # Show 10 contacts per page
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not integer deliver first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     context_data={
         'posts_list': posts
     }

@@ -13,3 +13,5 @@ class post(models.Model):
         return self.title
 
 
+    class Meta:
+        ordering =['-timestamp', '-updated']
