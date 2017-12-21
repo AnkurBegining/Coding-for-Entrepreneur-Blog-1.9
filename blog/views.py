@@ -32,11 +32,15 @@ def post_create(request):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
 
+    if not request.user.is_authenticated():
+        raise Http404
+
     form = PostForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         instance = form.save(commit = False)
         instance.save()
+        instance.user = request.user
         messages.success(request, "Successfully created")
         return redirect('blog:post_list')
 
@@ -59,6 +63,8 @@ def post_detail(request, slug):
 
 
 def post_update(request, slug):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     instance = get_object_or_404(post, slug=slug)
     # Remember putting or None
     form = PostForm(request.POST or None, request.FILES or None, instance=instance)
@@ -77,6 +83,8 @@ def post_update(request, slug):
 
 
 def post_delete(request, slug):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     instance = get_object_or_404(post,  slug=slug)
     instance.delete()
     return redirect('blog:post_list')

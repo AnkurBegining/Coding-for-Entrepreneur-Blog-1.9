@@ -32,9 +32,13 @@
                                 <small>{{ post.timestamp|timesince }}</small>
                             </h3>
                             <p>
+                                Author: {{ post.user }}
+                            </p>
+                            <p>
                                 {{ post.post_content|linebreaks|truncatechars:130 }}
                             </p>
                             <p>
+                                {% if post.user == request.user %}
                                 <a href="{% url 'blog:post_update' slug=post.slug %}">
                                     <button>
                                         Update
@@ -45,6 +49,7 @@
                                         Delete
                                     </button>
                                 </a>
+                                {% endif %}
                             </p>
                         </div>
                     </div>

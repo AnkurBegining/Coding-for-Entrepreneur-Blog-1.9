@@ -14,15 +14,17 @@
                 {% if post.image %}
                     <img src="{{ post.image.url }}" class="img-responsive" alt="Blog Post image">
                 {% endif %}
-
-                <h1>
+                <h2>
                     <a href="{% url 'blog:post_detail' slug=post.slug %}">
                         {{ post.title }}
                         <small>
                             {{ post.updated|timesince }} ago
                         </small>
                     </a>
-                </h1>
+                </h2>
+                <p>
+                    Author: {{ post.user }}
+                </p>
                 <p>
                     {{ post.post_content|linebreaks }}
                 </p>
