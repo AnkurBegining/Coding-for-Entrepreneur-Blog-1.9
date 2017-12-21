@@ -7,6 +7,7 @@ from blog.models import post
 from blog.forms import PostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.db.models import Q
 
 # Create your views here.
 
@@ -14,8 +15,11 @@ def post_list(request):
     posts_list = post.objects.all()
     query = request.GET.get("q")
     if query:
-        posts_list = posts_list.filter(title__icontains=query)
-    paginator = Paginator(posts_list, 10)  # Show 10 contacts per page
+        posts_list = posts_list.filter(
+            Q(title__icontains=query)|
+            Q(post_content__icontains=query)
+        ).distinct()
+    paginator = Paginator(posts_list, 2)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
