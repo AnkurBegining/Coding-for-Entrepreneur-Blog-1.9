@@ -12,6 +12,9 @@ from django.shortcuts import render
 
 def post_list(request):
     posts_list = post.objects.all()
+    query = request.GET.get("q")
+    if query:
+        posts_list = posts_list.filter(title__icontains=query)
     paginator = Paginator(posts_list, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:

@@ -9,9 +9,15 @@
         <div class="row" style="text-align: center; font-family:Apple Chancery; ">
             <div class="col-md-6 col-md-offset-3">
                 <h1>Welcome to blog</h1>
-                <a href="{% url 'blog:post_create' %}">
-                    Create New Blog
-                </a>
+                <form method="GET"  action="">
+                    <input type="text" name='q' placeholder="Search" value="{{ request.get.q }}">
+                    <input type="submit" value="Search">
+                </form>
+                <p>
+                   <a href="{% url 'blog:post_create' %}">
+                        Create New Blog
+                    </a>
+                </p>
             </div>
         </div>
         {% for post in posts_list %}
@@ -29,6 +35,11 @@
                                 <a href="{% url 'blog:post_detail' slug=post.slug %}">
                                     {{ post.title }}
                                 </a>
+                                {% comment %}{% if post.draft %}
+                                    <span style="color: red">
+                                        Draft
+                                    </span>
+                                {% endif %}{% endcomment %}
                                 <small>{{ post.timestamp|timesince }}</small>
                             </h3>
                             <p>
