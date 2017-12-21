@@ -1,3 +1,4 @@
+from urllib.parse import quote_plus
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from blog.models import post
@@ -42,9 +43,11 @@ def post_create(request):
 def post_detail(request, slug):
 
     instance = get_object_or_404(post, slug =slug)
+    share_string = quote_plus(instance.post_content)
     context_data = {
         "title" : instance.title,
-        "post" : instance
+        "post" : instance,
+        "share_string" : share_string
     }
     return render(request, "blog/post_detail.html", context_data)
 
