@@ -1,4 +1,6 @@
 from urllib.parse import quote_plus
+
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from blog.models import post
@@ -26,6 +28,10 @@ def post_list(request):
 
 
 def post_create(request):
+
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
+
     form = PostForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
