@@ -46,7 +46,8 @@
                                 Author: {{ post.user }}
                             </p>
                             <p>
-                                {{ post.post_content|linebreaks|truncatechars:130 }}
+
+                                <div class='content-markdown'>{{ post.post_content|truncatechars:200 }}</div>
                             </p>
                             <p>
                                 {% if post.user == request.user %}

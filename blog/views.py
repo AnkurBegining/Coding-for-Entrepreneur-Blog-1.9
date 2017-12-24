@@ -19,6 +19,7 @@ def post_list(request):
             Q(title__icontains=query)|
             Q(post_content__icontains=query)
         ).distinct()
+        print(posts_list)
     paginator = Paginator(posts_list, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:
